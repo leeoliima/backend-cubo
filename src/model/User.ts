@@ -1,47 +1,26 @@
-import { CustomError } from "../errors/CustomError";
 
 export class User {
    constructor(
-      private id: string,
-      private name: string,
-      private email: string,
-      private password: string,
-      private role: USER_ROLES
+      public id: string,
+      public first_name: string,
+      public last_name: string,
+      public participation: number,      
    ) { }
 
    public getId(): string {
       return this.id;
    }
 
-   public getName(): string {
-      return this.name;
+   public firstName(): string {
+      return this.first_name;
    }
 
-   public getEmail(): string {
-      return this.email;
+   public lastName(): string {
+      return this.last_name;
    }
 
-   public getPassword(): string {
-      return this.password;
-   }
+   public participations(): number {
+      return this.participation;   }
 
-   public getRole(): USER_ROLES {
-      return this.role;
-   }
-}
-
-export const stringToUserRole = (input: string): USER_ROLES => {
-   switch (input) {
-      case "NORMAL":
-         return USER_ROLES.NORMAL;
-      case "ADMIN":
-         return USER_ROLES.ADMIN;
-      default:
-         throw new CustomError(422, "Invalid user role");
-   }
-};
-
-export enum USER_ROLES {
-   NORMAL = "NORMAL",
-   ADMIN = "ADMIN",
+ 
 }
