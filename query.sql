@@ -10,3 +10,4 @@ CREATE TABLE users (
 INSERT INTO users (first_name, last_name, participation)
 VALUES ('Leandro', 'Lima', 50);
 
+SELECT * from users

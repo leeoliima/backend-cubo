@@ -5,9 +5,7 @@ export class UserBusiness {
   constructor(private userDatabase: UserDatabase) {}
 
   public async createUser(input: User): Promise<void> {
-    const { id, first_name, last_name, participation } = input;
-    const newUser = new User(id, first_name, last_name, participation);
-    await this.userDatabase.createUser(newUser);
+    await this.userDatabase.createUser(input);
   }
 
   public async getParticipants(): Promise<User[]> {

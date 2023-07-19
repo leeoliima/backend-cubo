@@ -3,21 +3,18 @@ import BaseDataBase from "../data/BaseDatabase";
 
 export class UserDatabase {
    public async createUser(user: User): Promise<void> {
-      
       try {
-         await BaseDataBase.connection.raw(`
-            INSERT INTO (users) (id, fisrt_name, last_name, participation)
-            VALUES (
-            '${user.getId()}', 
-            '${user.firstName()}', 
-            '${user.lastName()}',
-            '${user.participations()}'            
-            )`
-         );
-      } catch (error:any) {
-         throw new Error(error.sqlMessage || error.message)
+        await BaseDataBase.connection
+          .insert({
+            first_name: user.getFirstName(),
+            last_name: user.getLastName(),
+            participation: user.getParticipation(),
+          })
+          .into("users");
+      } catch (error: any) {
+        throw new Error(error.sqlMessage || error.message);
       }
-   }
+    }
 
    public async getAllUsers(): Promise<User[]> {
       try {
@@ -26,8 +23,7 @@ export class UserDatabase {
          `);
          return result[0].map((res: any) => {
             return new User(
-               res.id,
-               res.first_name,
+                             res.first_name,
                res.last_name,
                res.participation,               
             );
@@ -37,3 +33,4 @@ export class UserDatabase {
       }
    }
 }
+
