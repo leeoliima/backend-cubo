@@ -1,13 +1,12 @@
-import express, { Request, Response } from "express";
-
+import express, { Request, Response, NextFunction } from "express";
 import { UserDatabase } from "./data/UserDatabase";
-import { User } from "./model/User";
+import { UserController } from "./controller/UserController";
 
 const app = express();
 const userDatabase = new UserDatabase();
+const userController = new UserController(userDatabase);
 
-// Adicione o middleware express.json() para analisar o corpo da solicitação como JSON
-app.use(express.json());
+app.use(express.json()); // Adicione esse middleware para analisar o corpo da solicitação como JSON
 
 app.listen(3003, "localhost", () => {
   console.log("Servidor rodando em http://localhost:3003");
@@ -17,29 +16,12 @@ app.get("/ping", (req: Request, res: Response) => {
   res.send("pong");
 });
 
-app.post("/create", async (req: Request, res: Response) => {
-  try {
-    const { firstName, lastName, participation } = req.body;
+app.post("/create", userController.createUser);
 
-    const user = new User(firstName, lastName, participation);
-    // Atribuindo os valores usando os métodos setters
+app.get("/users", userController.getAllUsers);
 
-    user.setFirstName(firstName);
-    user.setLastName(lastName);
-    user.setParticipation(participation);
-
-    await userDatabase.createUser(user);
-    res.send("Usuário criado com sucesso!");
-  } catch (error: any) {
-    res.status(500).send({ message: error.message });
-  }
-});
-
-app.get("/users", async (req: Request, res: Response) => {
-  try {
-    const users = await userDatabase.getAllUsers();
-    res.send(users);
-  } catch (error: any) {
-    res.status(500).send({ message: error.message });
-  }
+// Middleware para tratamento de erros
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+  console.error(error);
+  res.status(500).json({ message: 'Something went wrong.' });
 });

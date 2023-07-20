@@ -4,20 +4,19 @@ import knex from "knex";
 dotenv.config();
 
 export default class BaseDataBase {
-   
-    static connection = knex({
-      client: "mysql",
-      connection: {
-         host: process.env.DB_HOST,
-         user: process.env.DB_USER,
-         password: process.env.DB_PASS,
-         database: process.env.DB_NAME,
-         port: 3306,
-         multipleStatements: true
-      },
-   });
+  static connection = knex({
+    client: "mysql",
+    connection: {
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
+      port: 3306,
+      multipleStatements: true
+    },
+  });
 
-   public static async destroyConnection(): Promise<void> {
-      await BaseDataBase.connection.destroy();
-   }
+  static async destroyConnection() {
+    await BaseDataBase.connection.destroy();
+  }
 }

@@ -8,7 +8,7 @@ export class UserBusiness {
     await this.userDatabase.createUser(input);
   }
 
-  public async getParticipants(): Promise<User[]> {
+  public async getUsers(): Promise<User[]> { // Corrigido para getUsers()
     return await this.userDatabase.getAllUsers();
   }
 }
