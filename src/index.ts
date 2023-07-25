@@ -12,13 +12,13 @@ app.listen(3003, "localhost", () => {
   console.log("Servidor rodando em http://localhost:3003");
 });
 
-app.get("/ping", (req: Request, res: Response) => {
+app.get("https://backend-cubo.onrender.com/users/ping", (req: Request, res: Response) => {
   res.send("pong");
 });
 
-app.post("/create", userController.createUser);
+app.post("https://backend-cubo.onrender.com/users/create", userController.createUser);
 
-app.get("/users", userController.getAllUsers);
+app.get("https://backend-cubo.onrender.com/users/users", userController.getAllUsers);
 
 // Middleware para tratamento de erros
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
