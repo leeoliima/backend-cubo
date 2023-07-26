@@ -1,15 +1,9 @@
 import express from "express";
-import { UserBusiness } from "../business/UserBusiness";
 import { UserController } from "../controller/UserController";
 import { UserDatabase } from "../data/UserDatabase";
 
-
 export const userRouter = express.Router();
+const userController = new UserController(new UserDatabase()); // Crie uma instância do UserDatabase aqui
 
-
-const userDatabase = new UserDatabase()
-const userBusiness = new UserBusiness(userDatabase)
-const userController = new UserController(userDatabase)
-
-userRouter.post('/users', userController.createUser);
+userRouter.post('/create', userController.createUser);
 userRouter.get('/users', userController.getAllUsers);
