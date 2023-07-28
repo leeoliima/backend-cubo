@@ -12,7 +12,7 @@ export default class BaseDataBase {
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       port: 3306,
-      multipleStatements: true
+      multipleStatements: true,
     },
   });
 

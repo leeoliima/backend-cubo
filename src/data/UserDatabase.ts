@@ -21,9 +21,19 @@ export class UserDatabase {
       const result = await BaseDataBase.connection.raw(`
         SELECT * from users
       `);
-      return result[0].map((res: { first_name: string, last_name: string, participation: string }) => {
-        return new User(res.first_name, res.last_name, parseFloat(res.participation));
-      });
+      return result[0].map(
+        (res: {
+          first_name: string;
+          last_name: string;
+          participation: string;
+        }) => {
+          return new User(
+            res.first_name,
+            res.last_name,
+            parseFloat(res.participation)
+          );
+        }
+      );
     } catch (error: any) {
       throw new Error(error.sqlMessage || error.message);
     }

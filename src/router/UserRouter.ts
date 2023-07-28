@@ -3,7 +3,7 @@ import { UserController } from "../controller/UserController";
 import { UserDatabase } from "../data/UserDatabase";
 
 export const userRouter = express.Router();
-const userController = new UserController(new UserDatabase()); // Crie uma instância do UserDatabase aqui
+const userController = new UserController(new UserDatabase());
 
-userRouter.post('/create', userController.createUser);
-userRouter.get('/users', userController.getAllUsers);
+userRouter.post("/create", userController.createUser);
+userRouter.get("/users", userController.getAllUsers);
